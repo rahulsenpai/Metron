@@ -6,12 +6,58 @@ const exercises = () => {
   return (
     <>
    
+   
     <View style={Styles.container}>
-       <View style={Styles.button}>
+       <View style={Styles.buttonContainer}>
         <Link href= "/(tabs)/explore" asChild>
                 <Pressable style={Styles.button}>
-                  <Text style={Styles.button}>
-                  New Routine
+                  <Text style={Styles.text}>
+                  Chest
+                  </Text>
+                </Pressable>
+                </Link>
+      </View>
+      <View style={Styles.buttonContainer}>
+        <Link href= "/(tabs)/explore" asChild>
+                <Pressable style={Styles.button}>
+                  <Text style={Styles.text}>
+                  Back
+                  </Text>
+                </Pressable>
+                </Link>
+      </View>
+      <View style={Styles.buttonContainer}>
+        <Link href= "/(tabs)/explore" asChild>
+                <Pressable style={Styles.button}>
+                  <Text style={Styles.text}>
+                  Shoulder
+                  </Text>
+                </Pressable>
+                </Link>
+      </View>
+      <View style={Styles.buttonContainer}>
+        <Link href= "/(tabs)/explore" asChild>
+                <Pressable style={Styles.button}>
+                  <Text style={Styles.text}>
+                  Arms
+                  </Text>
+                </Pressable>
+                </Link>
+      </View>
+      <View style={Styles.buttonContainer}>
+        <Link href= "/(tabs)/explore" asChild>
+                <Pressable style={Styles.button}>
+                  <Text style={Styles.text}>
+                  Core
+                  </Text>
+                </Pressable>
+                </Link>
+      </View>
+      <View style={Styles.buttonContainer}>
+        <Link href= "/(tabs)/explore" asChild>
+                <Pressable style={Styles.button}>
+                  <Text style={Styles.text}>
+                  Legs
                   </Text>
                 </Pressable>
                 </Link>
@@ -26,12 +72,13 @@ export default exercises
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 35,
     justifyContent: 'center', // Center content vertically
     alignItems: 'center', // Center content horizontally
     backgroundColor: '#232627',
   },
   buttonContainer: {
-    width: 200, // Set a fixed width for better layout
+    width: 300, // Set a fixed width for better layout
     height: 50,
 
 
