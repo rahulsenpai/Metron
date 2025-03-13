@@ -9,7 +9,7 @@ const exercises = () => {
    
     <View style={Styles.container}>
        <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Chest" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Chest
@@ -18,7 +18,7 @@ const exercises = () => {
                 </Link>
       </View>
       <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Back" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Back
