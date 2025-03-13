@@ -27,7 +27,7 @@ const exercises = () => {
                 </Link>
       </View>
       <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Shoulder" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Shoulder

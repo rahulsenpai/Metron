@@ -11,7 +11,7 @@ export default function Chest() {
     <FlatList
     data={ChestExercises}
     KeyExtractor={(item) => item.id.tostring()}
-    showsVerticalScrollIndicator={false}
+    showsVerticalScrollIndicator={true}
     renderItem={({ item }) => (
     <View style={Styles.containerItems}>
        <View style={Styles.buttonContainer}>

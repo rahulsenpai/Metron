@@ -19,3 +19,14 @@ export const BackExercises = [
         "title" : "Dumbell Press",
     },
 ]
+
+export const ShoulderExercises = [
+    {
+        "id" : 1,
+        "title" : "Lateral Rasis",
+    },
+    {
+        "id" : 2,
+        "title" : "Military Press",
+    },
+];
