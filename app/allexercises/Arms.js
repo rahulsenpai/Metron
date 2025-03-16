@@ -11,7 +11,7 @@ export default function Arms() {
     <FlatList
     data={ArmsExercises}
     KeyExtractor={(item) => item.id.tostring()}
-    showsVerticalScrollIndicator={true}
+    showsVerticalScrollIndicator={false}
     renderItem={({ item }) => (
     <View style={Styles.containerItems}>
        <View style={Styles.buttonContainer}>
