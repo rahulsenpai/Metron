@@ -36,7 +36,7 @@ const exercises = () => {
                 </Link>
       </View>
       <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Core" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Arms
@@ -45,7 +45,7 @@ const exercises = () => {
                 </Link>
       </View>
       <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Arms" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Core
@@ -54,7 +54,7 @@ const exercises = () => {
                 </Link>
       </View>
       <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/allexercises/Legs" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   Legs

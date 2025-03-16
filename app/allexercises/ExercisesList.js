@@ -18,7 +18,7 @@ export const BackExercises = [
         "id" : 2,
         "title" : "Dumbell Press",
     },
-]
+];
 
 export const ShoulderExercises = [
     {
@@ -28,5 +28,41 @@ export const ShoulderExercises = [
     {
         "id" : 2,
         "title" : "Military Press",
+    },
+];
+
+    export const CoreExercises = [
+        {
+            "id" : 1,
+            "title" : "Crunches",
+        },
+        {
+            "id" : 2,
+            "title" : "Plank",
+        },   
+
+
+];
+
+
+export const ArmsExercises = [
+    {
+        "id" : 1,
+        "title" : "Barbell Bicep Curl",
+    },
+    {
+        "id" : 2,
+        "title" : "Hammer Curl",
+    },   
+];
+
+export const LegsExercises = [
+    {
+        "id" : 1,
+        "title" : "Leg Press",
+    },
+    {
+        "id" : 2,
+        "title" : "Squats",
     },
 ];
