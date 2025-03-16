@@ -15,7 +15,7 @@ export default function Chest() {
     renderItem={({ item }) => (
     <View style={Styles.containerItems}>
        <View style={Styles.buttonContainer}>
-        <Link href= "/(tabs)/explore" asChild>
+        <Link href= "/routine" asChild>
 
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>

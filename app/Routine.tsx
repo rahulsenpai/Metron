@@ -10,7 +10,7 @@ const routine = () => {
         <Link href= "/allexercises/Chest" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
-                  Chest
+                  hemlo
                   </Text>
                 </Pressable>
                 </Link>
