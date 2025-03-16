@@ -16,6 +16,7 @@ export default function Chest() {
     <View style={Styles.containerItems}>
        <View style={Styles.buttonContainer}>
         <Link href= "/(tabs)/explore" asChild>
+
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
                   {item.title}

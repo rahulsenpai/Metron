@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, Pressable, FlatList } from 'react-native';
 import { Link } from 'expo-router'
-import { BackExercises, BackExercisesExercises } from './ExercisesList';
+import { BackExercises } from './ExercisesList';
 
 export default function Chest() {
   return (
