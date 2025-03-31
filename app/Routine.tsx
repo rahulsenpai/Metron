@@ -5,17 +5,17 @@ import { Link } from 'expo-router'
 const routine = () => {
   return (
     <> 
-    <View style={Styles.container}>
-       <View style={Styles.buttonContainer}>
-        <Link href= "/allexercises/Chest" asChild>
-                <Pressable style={Styles.button}>
-                  <Text style={Styles.text}>
-                  hemlo
-                  </Text>
-                </Pressable>
-                </Link>
-      </View>    
-    </View>
+      <View style={Styles.container}>
+         <View style={Styles.buttonContainer}>
+          <Link href= "/allexercises/Chest" asChild>
+            <Pressable style={Styles.button}>
+              <Text style={Styles.text}>
+                hemlo
+              </Text>
+            </Pressable>
+          </Link>
+        </View>    
+      </View>
     </>
   )
 }
