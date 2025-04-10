@@ -1,68 +1,70 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
   Text,
-  Pressable,
   ScrollView,
+  Pressable,
   KeyboardAvoidingView,
   Platform,
-  StatusBar,
   Alert,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import SetRow from '../components/SetRow'
+import InputFields from '@/components/InputFields'
 
-const Routine = () => {
-  const { name } = useLocalSearchParams()
+const RoutineEdit = () => {
   const router = useRouter()
-  const [fields, setFields] = useState([1])
+  const { name, data } = useLocalSearchParams()
+  const parsed = JSON.parse(data || '{}')
+
+  const [fields, setFields] = useState([])
   const [setsData, setSetsData] = useState({})
 
-  const addNewSet = () => {
-    const next = fields.length ? Math.max(...fields) + 1 : 1
-    setFields(prev => [...prev, next])
-  }
+  useEffect(() => {
+    if (parsed && parsed.sets) {
+      const keys = Object.keys(parsed.sets).map(Number)
+      setFields(keys)
+      setSetsData(parsed.sets)
+    }
+  }, [data])
 
   const updateSetData = (setNumber, data) => {
     setSetsData(prev => ({ ...prev, [setNumber]: data }))
   }
 
-  const saveSets = async () => {
+  const saveEdits = async () => {
     try {
-      if (Object.keys(setsData).length === 0) {
-        Alert.alert('No data', 'Please add at least one set.')
-        return
-      }
-
-      const key = `workout_${name}_${new Date().toISOString()}`
-      const payload = {
-        exercise: name,
-        timestamp: new Date().toISOString(),
+      const updatedPayload = {
+        ...parsed,
         sets: setsData,
-        key: key,
+        timestamp: new Date().toISOString(),
       }
 
-      await AsyncStorage.setItem(key, JSON.stringify(payload))
-      Alert.alert('Success', 'Workout saved locally!')
+      await AsyncStorage.setItem(parsed.key, JSON.stringify(updatedPayload))
+      Alert.alert('Updated!', 'Routine successfully updated.')
       router.back()
-    } catch (error) {
-      Alert.alert('Error', 'Failed to save workout.')
+    } catch (err) {
+      Alert.alert('Error', 'Could not update routine.')
     }
   }
 
+  const addNewSet = () => {
+    const next = Math.max(...fields, 0) + 1
+    setFields(prev => [...prev, next])
+  }
+
   return (
-    <View style={styles.safeAreaHack}>
+    <View style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={styles.heading}>{name}</Text>
+          <Text style={styles.heading}>{parsed.exercise || name}</Text>
 
           {fields.map((setNumber) => (
-            <SetRow
+            <InputFields
               key={setNumber}
               setNumber={setNumber}
               initialData={setsData[setNumber]}
@@ -72,10 +74,10 @@ const Routine = () => {
         </ScrollView>
 
         <View style={styles.buttonWrapper}>
-          <Pressable style={styles.saveButton} onPress={saveSets}>
-            <Text style={styles.text}>Save Sets</Text>
+          <Pressable style={styles.saveButton} onPress={saveEdits}>
+            <Text style={styles.text}>💾 Save Changes</Text>
           </Pressable>
-          <Pressable style={styles.button} onPress={addNewSet}>
+          <Pressable style={styles.addButton} onPress={addNewSet}>
             <Text style={styles.text}>+ New Set</Text>
           </Pressable>
         </View>
@@ -84,12 +86,12 @@ const Routine = () => {
   )
 }
 
-export default Routine
+export default RoutineEdit
 
 const styles = StyleSheet.create({
-  safeAreaHack: {
+  safeArea: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === 'android' ? 30 : 0,
     backgroundColor: '#1e1f22',
   },
   container: {
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
     paddingBottom: 140,
     alignItems: 'center',
-    gap: 20,
+    gap: 30,
   },
   heading: {
     fontSize: 28,
@@ -117,22 +119,22 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   saveButton: {
-    backgroundColor: '#FAF9F6',
+    backgroundColor: '#34D399',
     height: 50,
     width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
-    elevation: 6,
+    elevation: 4,
   },
-  button: {
+  addButton: {
     backgroundColor: '#F472B6',
     height: 50,
     width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
-    elevation: 6,
+    elevation: 4,
   },
   text: {
     fontSize: 18,
