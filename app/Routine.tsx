@@ -81,6 +81,7 @@ const Routine = () => {
         </View>
       </KeyboardAvoidingView>
     </View>
+    </>
   )
 }
 
