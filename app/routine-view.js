@@ -18,8 +18,17 @@ const RoutineView = () => {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.heading}>{workout.exercise}</Text>
         <Text style={styles.timestamp}>
-          {new Date(workout.timestamp).toLocaleString()}
-        </Text>
+  {new Date(workout.timestamp).toLocaleString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })}
+</Text>
+
 
         {workout.sets && Object.keys(workout.sets).length > 0 ? (
           Object.entries(workout.sets).map(([setNum, setData]) => (
