@@ -156,7 +156,7 @@ const App = () => {
             style={styles.cardPressable}
           >
             <View style={styles.card}>
-              <Text style={styles.routineTitle}>{workout.exercise}</Text>
+              <Text style={styles.routineTitle}>🏋🏽{workout.exercise}</Text>
               <Text style={styles.timestamp}>
                 {new Date(workout.timestamp).toLocaleString("en-US", {
                   weekday: "long",
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   newRoutineButton: {
-    backgroundColor: "#F472B6",
+    backgroundColor: "#bae1ff",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 16,
@@ -294,17 +294,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   editBtn: {
-    backgroundColor: "#3B82F6",
+    backgroundColor: "#14b8a6",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
+    shadowColor: "white",              // Shadow color
+    shadowOffset: { width: 2, height: 2 }, // Offset for iOS
+    shadowOpacity: 0.3,               // Opacity of the shadow
+    shadowRadius: 3.84,               // Blur radius (iOS)
+    elevation: 5,                     // Android shadow
   },
   deleteBtn: {
-    backgroundColor: "#EF4444",
+    backgroundColor: "#e11d48",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
+    shadowColor: "white",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
+  
   btnText: {
     color: "white",
     fontWeight: "bold",

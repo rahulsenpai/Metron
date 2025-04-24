@@ -1,109 +1,196 @@
-import { StyleSheet, Image, Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Alert,
+  TextInput,
+  Keyboard,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+// EXAMPLE: ProfileScreen component
+export default function ProfileScreen() {
+  const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [name, setName] = useState('');
+  const [editingName, setEditingName] = useState(false);
 
-export default function TabTwoScreen() {
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  // Load saved name & profilePic from AsyncStorage
+  const loadProfile = async () => {
+    try {
+      const storedName = await AsyncStorage.getItem('userName');
+      const storedPic = await AsyncStorage.getItem('userPhoto');
+      if (storedName) setName(storedName);
+      if (storedPic) setProfilePic(storedPic);
+    } catch (error) {
+      Alert.alert('Error', 'Could not load profile data');
+    }
+  };
+
+  // Save updated name to AsyncStorage
+  const saveName = async (updatedName: string) => {
+    try {
+      await AsyncStorage.setItem('userName', updatedName);
+    } catch (error) {
+      Alert.alert('Error', 'Could not save name');
+    }
+  };
+
+  // Save updated photo URI to AsyncStorage
+  const savePhoto = async (uri: string) => {
+    try {
+      await AsyncStorage.setItem('userPhoto', uri);
+    } catch (error) {
+      Alert.alert('Error', 'Could not save photo');
+    }
+  };
+
+  // Pick an image from camera roll
+  const changeProfilePhoto = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (!permissionResult.granted) {
+        Alert.alert('Permission required', 'Allow access to media library to change photo.');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [1, 1],        // force square
+        quality: 0.7,
+      });
+
+      if (!result.canceled && result.assets?.[0]?.uri) {
+        const uri = result.assets[0].uri;
+        setProfilePic(uri);
+        savePhoto(uri);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Could not open image picker');
+    }
+  };
+
+  // Called when user finishes editing name
+  const onEndEditingName = () => {
+    setEditingName(false);
+    saveName(name);
+    Keyboard.dismiss();
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      {/* Dark header with profile photo */}
+      <View style={styles.headerContainer}>
+        {/* Profile photo (tap to change) */}
+        <Pressable onPress={changeProfilePhoto} style={styles.photoWrapper}>
+          {profilePic ? (
+            <Image source={{ uri: profilePic }} style={styles.profilePhoto} />
+          ) : (
+            <Text style={styles.noPhotoText}>Tap to add photo</Text>
+          )}
+        </Pressable>
+
+        {/* Name (tap to edit) */}
+        {editingName ? (
+          <TextInput
+            style={styles.nameInput}
+            value={name}
+            onChangeText={setName}
+            autoFocus
+            onEndEditing={onEndEditingName}
+            returnKeyType="done"
+          />
+        ) : (
+          <Pressable onPress={() => setEditingName(true)}>
+            <Text style={styles.nameText}>
+              {name ? name : 'Tap to set name'}
+            </Text>
+          </Pressable>
+        )}
+      </View>
+
+      {/* About / Content area */}
+      <View style={styles.contentContainer}>
+        <Text style={styles.aboutHeading}>About</Text>
+        <Text style={styles.aboutDescription}>
+        "Track & Progress" is a dynamic, user-friendly workout tracking app designed to help you stay consistent and measure your fitness progress over time. Whether you're a beginner or an experienced athlete, this app provides all the tools you need to plan, record, and analyze your workouts in one place.
+        </Text>
+      </View>
+    </View>
   );
 }
 
+// ===================== STYLES =====================
+
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff', // White for the main area
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  // ---------------- Header Styles ----------------
+  headerContainer: {
+    backgroundColor: '#232627', // Dark top area
+    paddingTop: 60,
+    paddingBottom: 40,
+    alignItems: 'center',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  photoWrapper: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#555',
+    overflow: 'hidden',
+    marginBottom: 15,
+  },
+  profilePhoto: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  noPhotoText: {
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 40,
+  },
+  nameText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#F4F4F4',
+    textTransform: 'capitalize',
+  },
+  nameInput: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#F4F4F4',
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    textAlign: 'center',
+  },
+  // ---------------- Content Styles ----------------
+  contentContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  aboutHeading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#232627',
+  },
+  aboutDescription: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: '#444',
   },
 });

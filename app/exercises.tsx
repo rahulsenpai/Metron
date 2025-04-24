@@ -39,7 +39,7 @@ const exercises = () => {
         <Link href= "/allexercises/Core" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
-                  Arms
+                  Core
                   </Text>
                 </Pressable>
                 </Link>
@@ -48,7 +48,7 @@ const exercises = () => {
         <Link href= "/allexercises/Arms" asChild>
                 <Pressable style={Styles.button}>
                   <Text style={Styles.text}>
-                  Core
+                  Arms
                   </Text>
                 </Pressable>
                 </Link>
@@ -80,17 +80,18 @@ const Styles = StyleSheet.create({
   buttonContainer: {
     width: 300, // Set a fixed width for better layout
     height: 50,
-
-
   },
   button: {
-    backgroundColor: "pink",
+    backgroundColor: "#bae1ff",
     height: 50,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 25, // Makes the button round (half of the height)
   },
   text: {
     fontSize: 20,
-    fontWeight: 'bold',
+   fontFamily: "sans-serif", 
+    // fontWeight: 'bold', // Bold text
+    // tahoma, verdana, arial, sans-serif;
   }
-})
+});

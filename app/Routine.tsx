@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   safeAreaHack: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    backgroundColor: '#1e1f22',
+    backgroundColor: '#232627',
   },
   container: {
     flex: 1,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   button: {
-    backgroundColor: '#F472B6',
+    backgroundColor: '#bae1ff',
     height: 50,
     width: 300,
     justifyContent: 'center',

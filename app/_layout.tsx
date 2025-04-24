@@ -36,6 +36,18 @@ export default function RootLayout() {
         <Stack.Screen name="exercises" options={{ headerShown: false }} />
         <Stack.Screen name="allexercises" options={{ headerShown: false }} />
         <Stack.Screen name="routine" options={{ headerShown: false }} />
+        <Stack.Screen name="routine-edit" options={{ headerShown: false }} />
+        <Stack.Screen name="routine-view" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Chest" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Back" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Arms" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Core" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Legs" options={{ headerShown: false }} />
+        <Stack.Screen name="allexercises/Shoulder" options={{ headerShown: false }} />
+
+
+
+
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

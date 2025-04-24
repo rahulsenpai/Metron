@@ -75,7 +75,7 @@ const RoutineEdit = () => {
 
         <View style={styles.buttonWrapper}>
           <Pressable style={styles.saveButton} onPress={saveEdits}>
-            <Text style={styles.text}>💾 Save Changes</Text>
+            <Text style={styles.text}>Save Changes</Text>
           </Pressable>
           <Pressable style={styles.addButton} onPress={addNewSet}>
             <Text style={styles.text}>+ New Set</Text>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? 30 : 0,
-    backgroundColor: '#1e1f22',
+    backgroundColor: '#232627',
   },
   container: {
     flex: 1,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   saveButton: {
-    backgroundColor: '#34D399',
+    backgroundColor: '#FAF9F6',
     height: 50,
     width: 300,
     justifyContent: 'center',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   addButton: {
-    backgroundColor: '#F472B6',
+    backgroundColor: '#bae1ff',
     height: 50,
     width: 300,
     justifyContent: 'center',
